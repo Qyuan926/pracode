@@ -12,6 +12,10 @@ struct TreeNode{
 
 
 namespace Printf1{
+	//头结点为边界节点
+	//叶节点为边界节点
+	//树左边界延伸下去的路径为边界节点
+	//树右边界延伸下去的路径为边界节点
 	int TreeHeight(TreeNode* root)
 	{
 		if (root == nullptr)
@@ -69,6 +73,60 @@ namespace Printf1{
 	}
 	
 };
+namespace Printf2{
+	//头结点为边界节点
+	//叶节点为边界节点
+	//树左边界延伸下去的路径为边界节点
+	//树右边界延伸下去的路径为边界节点
+	void printfleftEdge(TreeNode* Node,int print)
+	{
+		if (Node == nullptr)
+		{
+			return;
+		}
+		if (print || (Node->left == nullptr&&Node->right == nullptr))
+		{
+			printf("%c ", Node->value);
+		}
+		printfleftEdge(Node->left, print);
+		printfleftEdge(Node->right, print&&Node->left == nullptr ? 1 : 0);
+
+	}
+	void printfrighttEdge(TreeNode* Node, int print)
+	{
+		if (Node == nullptr)
+		{
+			return;
+		}
+		printfrighttEdge(Node->left, print&&Node->right==nullptr?1:0);
+		printfrighttEdge(Node->right, print);
+
+		if (print || (Node->left == nullptr&&Node->right == nullptr))
+		{
+			printf("%c ", Node->value);
+		}
+		
+
+	}
+	void printfEdge2(TreeNode* root)
+	{
+		if (root == nullptr)
+		{
+			return;
+		}
+		printf("%c ", root->value);
+		if (root->left)
+		{
+			printfleftEdge(root->left,1);
+		}
+		if (root->right!=nullptr)
+		{
+			printfrighttEdge(root->right, 1);
+		}
+	}
+
+
+};
 
 // 通过前序遍历的数组"ABD##E#H##CF##G##"构建二叉树
 TreeNode* BinaryTreeCreate(char* a, int* Index)
@@ -92,6 +150,8 @@ int main()
 	int Index = 0;
 	TreeNode* root=BinaryTreeCreate(a, &Index);
 	Printf1::printfEdge1(root);
+	printf("\n");
+	Printf2::printfEdge2(root);
 
 	return 0;
 }
