@@ -25,6 +25,11 @@ int strStr(string haystack, string needle) {
 		j++;
 		b[i] = j;
 	}
+	for (auto& e : b)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
 	int Index1 = 0;
 	int Index2 = 0;
 	while (Index1<haystack.size())
